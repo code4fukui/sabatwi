@@ -1,0 +1,64 @@
+<!DOCTYPE html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><link rel="icon" href="data:">
+<title>さばつい</title>
+<link rel="stylesheet" href="style.css">
+</head><body>
+<h1>さばつい</h1>
+
+<div class=postbox>
+  <input type=text id=in_user placeholder=ユーザー名><br>
+  <textarea id=ta_tweet></textarea><br>
+  <button id=btn_tweet>ツイート</button>
+</div>
+
+<div id=div_list></div>
+
+<hr>
+<a href=https://github.com/code4fukui/sabatwi/>src on GitHub</a>
+
+<script type="module">
+import { DateTime } from "https://js.sabae.cc/DateTime.js";
+import { fetchJSON } from "https://js.sabae.cc/fetchJSON.js";
+import { encodeHTML } from "https://js.sabae.cc/encodeHTML.js";
+
+const cr = (tag, parent, cls) => {
+  const c = document.createElement(tag);
+  if (parent) parent.appendChild(c);
+  if (cls) c.className = cls;
+  return c;
+};
+
+const show = async () => {
+  div_list.innerHTML = "";
+  const list = await fetchJSON("./api/tweet/list");
+  let limit = 200;
+  list.reverse();
+  for (const e of list) {
+    const div = cr("div", div_list, "tweetbox");
+    const divu = cr("div", div, "user");
+    divu.textContent = e.value.user;
+    const divdt = cr("div", div, "dt");
+    divdt.textContent = new DateTime(e.dt).toString();
+    const divt = cr("div", div, "tweet");
+    divt.textContent = e.value.tweet;
+    limit--;
+    if (!limit) break;
+  }
+};
+
+btn_tweet.onclick = async () => {
+  const user = in_user.value;
+  localStorage.setItem("user", user);
+  const tweet = ta_tweet.value;
+  const res = await fetchJSON("./api/tweet/add", { user, tweet });
+  if (res != "ok") {
+    alert("ツイート失敗！もう一度お試しください");
+  } else {
+    ta_tweet.value = "";
+    show();
+  }
+};
+
+show();
+in_user.value = localStorage.getItem("user") || "";
+
+</script>

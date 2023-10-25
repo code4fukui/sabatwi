@@ -1,0 +1,48 @@
+body {
+  background-color: rgb(191, 225, 238);
+  color: #222;
+}
+h1 {
+}
+
+.postbox {
+  margin: 1em;
+}
+.postbox #in_user {
+  padding: .2em;
+  margin-bottom: .4em;
+}
+.postbox #ta_tweet {
+  padding: .2em;
+  height: 5em;
+  width: 100%;
+}
+.postbox #btn_tweet {
+  padding: .2em;
+}
+
+.tweetbox {
+  border: 1px solid darkblue;
+  background-color: white;
+  padding: .5em;
+  margin: 1em;
+}
+.tweetbox .user {
+  display: inline-block;
+  font-size: 80%;
+  font-weight: bold;
+}
+.tweetbox .dt {
+  display: inline-block;
+  font-size: 80%;
+  margin-left: 1em;
+}
+.tweetbox .tweet {
+  white-space: pre-wrap;
+}
+
+a {
+  color: gray !important;
+}
+
+}
