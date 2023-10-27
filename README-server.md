@@ -91,3 +91,9 @@ nohup deno run --unstable --watch -A sabatwi.js 8080 &
 cd sabatwi
 git pull
 ```
+
+### auto update sabatwi by every minute
+
+```
+nohup sh autoupdate.sh &
+```
