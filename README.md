@@ -3,7 +3,7 @@
 ## to run
 
 ```
-deno run -A --unstable sabatwi.js 8080
+deno run -A --unstable --wattch sabatwi.js 8080
 ```
 access https://localhost:8080/
 
