@@ -6,7 +6,7 @@
 ssh -i secretkey ubuntu@160.248.79.66
 ```
 
-## update
+## update OS
 
 ```sh
 sudo apt update
