@@ -76,3 +76,18 @@ echo test > static/index.html
 deno run -A https://code4fukui.github.io/wsutil/demo4.js 8080
 ```
 - access https://sabatwi.com/
+
+## setup sabatwi
+
+```sh
+git clone https://github.com/code4fukui/sabatwi.git
+cd sabatwi
+nohup deno run --unstable --watch -A sabatwi.js 8080 &
+```
+
+## update sabatwi
+
+```
+cd sabatwi
+git pull
+```
