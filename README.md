@@ -7,12 +7,6 @@ deno run -A --unstable sabatwi.js 8080
 ```
 access https://localhost:8080/
 
-### on server
-
-```sh
-nohup deno run --unstable --watch -A sabatwi.js 8080 &
-```
-
 ## API
 
 ### add
