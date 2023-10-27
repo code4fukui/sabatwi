@@ -18,7 +18,7 @@
 <script type="module">
 import { DateTime } from "https://js.sabae.cc/DateTime.js";
 import { fetchJSON } from "https://js.sabae.cc/fetchJSON.js";
-import { encodeHTML } from "https://js.sabae.cc/encodeHTML.js";
+import { encodeHTML } from "https://code4sabae.github.io/js/encodeHTML.js";
 
 const cr = (tag, parent, cls) => {
   const c = document.createElement(tag);
@@ -39,7 +39,7 @@ const show = async () => {
     const divdt = cr("div", div, "dt");
     divdt.textContent = new DateTime(e.dt).toString();
     const divt = cr("div", div, "tweet");
-    divt.textContent = e.value.tweet;
+    divt.innerHTML = encodeHTML(e.value.tweet, true);
     limit--;
     if (!limit) break;
   }
