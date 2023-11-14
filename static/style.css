@@ -46,4 +46,16 @@ a {
   color: gray !important;
 }
 
+header {
+}
+h1 {
+  display: inline-block;
+  vertical-align: top;
+  margin: 0;
+}
+#logo {
+  display: inline-block;
+  width: 3em;
+  margin-top: .35em;
+  margin-right: .5em;
 }
