@@ -25,8 +25,16 @@ h1 {
 .tweetbox {
   border: 1px solid darkblue;
   background-color: white;
-  padding: .5em;
+  padding: .5em .5em .5em 4.0em;
+  min-height: 4em;
   margin: 1em;
+  x-background-image: url("./img/image4.png");
+  x-background-image: url("./img/image5.png");
+  x-background-image: url("./img/image9.png");
+  background-image: url("./img/image10.png");
+  background-position: .5em .5em;
+  background-repeat: no-repeat;
+  background-size: 3em;
 }
 .tweetbox .user {
   display: inline-block;
