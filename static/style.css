@@ -49,6 +49,9 @@ h1 {
 .tweetbox .tweet {
   white-space: pre-wrap;
 }
+.tweetbox .tweet a {
+  overflow-wrap: break-word;
+}
 
 a {
   color: gray !important;
