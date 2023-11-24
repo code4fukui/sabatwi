@@ -37,6 +37,7 @@ const show = async () => {
   let limit = 200;
   list.reverse();
   for (const e of list) {
+    if (e.value.replyid) continue;
     const div = cr("div", div_list, "tweetbox");
     const divu = cr("div", div, "user");
     divu.textContent = e.value.user;
@@ -44,6 +45,33 @@ const show = async () => {
     divdt.textContent = new DateTime(e.dt).toString();
     const divt = cr("div", div, "tweet");
     divt.innerHTML = encodeHTML(e.value.tweet, true);
+    const divfuncs = cr("div", div, "funcs");
+    /*
+    cr("div", divfuncs, "func-like").onclick = () => {
+      alert(e.id);
+    };
+    */
+    cr("div", divfuncs, "func-reply").onclick = async () => {
+      //alert(e.id);
+      const comment = prompt("");
+      if (!comment) return;
+      const user = in_user.value;
+      localStorage.setItem("user", user);
+      const res = await fetchJSON("./api/tweet/add", { user, tweet: comment, replyid: e.id });
+      if (res != "ok") {
+        alert("コメント失敗！もう一度お試しください");
+        return;
+      }
+      show();
+    };
+    const comments = list.filter(i => i.value.replyid == e.id);
+    if (comments.length > 0) {
+      const divc = cr("div", div, "comments");
+      for (const com of comments) {
+        const divc2 = cr("div", divc, "comment");
+        divc2.innerHTML = encodeHTML(com.value.user + ": " + com.value.tweet, true);
+      }
+    }
     limit--;
     if (!limit) break;
   }
