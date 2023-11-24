@@ -71,6 +71,9 @@ h1 {
 .func-link-liked {
   background-image: url("https://code4fukui.github.io/material-design-icons/src/action/favorite/materialiconstwotone/24px.svg");
 }
+.tweetbox .comments {
+  margin-left: 1em;
+}
 
 a {
   color: gray !important;

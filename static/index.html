@@ -71,7 +71,8 @@ const show = async () => {
       const divc = cr("div", div, "comments");
       for (const com of comments) {
         const divc2 = cr("div", divc, "comment");
-        divc2.innerHTML = encodeHTML(com.value.user + ": " + com.value.tweet, true);
+        divc2.innerHTML = encodeHTML(`${com.value.tweet}`, true);
+        divc2.title = com.value.user;
       }
     }
     limit--;
