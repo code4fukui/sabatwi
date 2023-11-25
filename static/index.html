@@ -33,13 +33,19 @@ const cr = (tag, parent, cls) => {
   return c;
 };
 
+const getUser = () => {
+  const user = in_user.value;
+  localStorage.setItem("user", user);
+  return user;
+};
+
 const show = async () => {
   div_list.innerHTML = "";
   const list = await fetchJSON("./api/tweet/list");
   let limit = 200;
   list.reverse();
   for (const e of list) {
-    if (e.value.replyid) continue;
+    if (e.value.replyid || e.value.likeid) continue;
     const div = cr("div", div_list, "tweetbox");
     const divu = cr("div", div, "user");
     divu.textContent = e.value.user;
@@ -48,25 +54,35 @@ const show = async () => {
     const divt = cr("div", div, "tweet");
     divt.innerHTML = encodeHTML(e.value.tweet, true);
     const divfuncs = cr("div", div, "funcs");
-    /*
-    cr("div", divfuncs, "func-like").onclick = () => {
-      alert(e.id);
+    // like
+    const likes = list.filter(i => i.value.likeid == e.id);
+    const like = cr("div", divfuncs, "func like");
+    like.onclick = async () => {
+      const res = await fetchJSON("./api/tweet/add", { user: getUser(), likeid: e.id });
+      if (res != "ok") {
+        alert("いいね失敗！もう一度お試しください");
+        return;
+      }
+      show();
     };
-    */
-    cr("div", divfuncs, "func-reply").onclick = async () => {
-      //alert(e.id);
+    const user = getUser();
+    if (likes.find(i => i.value.user == user)) {
+      like.classList.add("liked");
+    }
+    cr("div", divfuncs, "count").textContent = likes.length > 0 ? likes.length : "";
+    // comment
+    const comments = list.filter(i => i.value.replyid == e.id);
+    cr("div", divfuncs, "func reply").onclick = async () => {
       const comment = prompt("");
       if (!comment) return;
-      const user = in_user.value;
-      localStorage.setItem("user", user);
-      const res = await fetchJSON("./api/tweet/add", { user, tweet: comment, replyid: e.id });
+      const res = await fetchJSON("./api/tweet/add", { user: getUser(), tweet: comment, replyid: e.id });
       if (res != "ok") {
         alert("コメント失敗！もう一度お試しください");
         return;
       }
       show();
     };
-    const comments = list.filter(i => i.value.replyid == e.id);
+    cr("div", divfuncs, "count").textContent = comments.length > 0 ? comments.length : "";
     if (comments.length > 0) {
       const divc = cr("div", div, "comments");
       for (const com of comments) {
@@ -81,10 +97,8 @@ const show = async () => {
 };
 
 btn_tweet.onclick = async () => {
-  const user = in_user.value;
-  localStorage.setItem("user", user);
   const tweet = ta_tweet.value;
-  const res = await fetchJSON("./api/tweet/add", { user, tweet });
+  const res = await fetchJSON("./api/tweet/add", { user: getUser(), tweet });
   if (res != "ok") {
     alert("ツイート失敗！もう一度お試しください");
   } else {

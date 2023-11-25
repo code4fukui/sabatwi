@@ -55,20 +55,29 @@ h1 {
 .tweetbox .funcs {
   padding: .5em 0 0 0;
 }
-.tweetbox .funcs > div {
+.tweetbox .funcs .func {
   display: inline-block;
-  margin-right: 1em;
+  margin-right: .4em;
   width: 1em;
   height: 1em;
   background-size: 1em 1em;
 }
-.func-reply {
+.tweetbox .funcs .count {
+  display: inline-block;
+  font-size: 90%;
+  color: #555;
+  margin-right: 1em;
+  width: 1em;
+  height: .5em;
+  vertical-align: top;
+}
+.reply {
   background-image: url("https://code4fukui.github.io/material-design-icons/src/editor/mode_comment/materialiconsoutlined/24px.svg");
 }
-.func-like {
+.like {
   background-image: url("https://code4fukui.github.io/material-design-icons/src/action/favorite_border/materialiconsoutlined/24px.svg");
 }
-.func-link-liked {
+.liked {
   background-image: url("https://code4fukui.github.io/material-design-icons/src/action/favorite/materialiconstwotone/24px.svg");
 }
 .tweetbox .comments {
