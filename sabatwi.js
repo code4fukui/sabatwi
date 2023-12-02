@@ -36,5 +36,8 @@ serveAPI("/api/", async (param, req, path, conninfo) => {
     }
     return list;
   }
+  else if (path == "/api/health") {
+    return "ok";
+  }
   return "illegal";
 }, port);

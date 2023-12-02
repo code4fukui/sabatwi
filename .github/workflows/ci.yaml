@@ -24,15 +24,15 @@ jobs:
       - name: Debug Log
         run: echo "Server started"
 
-      - name: Health Check
-        run: curl http://localhost:8080
-
   run-tests:
     runs-on: ubuntu-latest
 
     needs: start-server
 
     steps:
+      - name: Health Check
+        run: curl http://localhost:8080/api/health
+
       - name: Checkout Repository
         uses: actions/checkout@v2
 
