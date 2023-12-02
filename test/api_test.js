@@ -4,11 +4,13 @@ import {
   assertStringIncludes,
 } from "https://deno.land/std/testing/asserts.ts";
 import { serve } from "https://deno.land/std/http/server.ts";
+import { startServer } from "../sabatwi.js";
 
 const PORT = 8080;
 const BASE_URL = `http://localhost:${PORT}/api`;
 
 console.log(`Server is running at http://localhost:${PORT}`);
+startServer(PORT);
 
 function assertObjectMatchWithoutDtAndId(actual, expected) {
   // dtとidを除いたオブジェクトが一致することを確認する
@@ -38,4 +40,8 @@ Deno.test("Get Tweet List", async () => {
   assertObjectMatchWithoutDtAndId(result[0], {
     value: { content: "Test tweet", user: "testUser" },
   });
+});
+
+Deno.test("Close Server", () => {
+  server.close();
 });
