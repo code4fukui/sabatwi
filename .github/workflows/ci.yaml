@@ -18,11 +18,11 @@ jobs:
       - name: Start Server
         run: deno run -A --unstable --watch sabatwi.js --allow-net=:8080 > /dev/null 2>&1 &
 
-      - name: Health Check
-        run: curl http://localhost:8080
-
       - name: Sleep
         run: sleep 5 # Wait for the server to start
+
+      - name: Health Check
+        run: curl http://localhost:8080
 
   run-tests:
     runs-on: ubuntu-latest
