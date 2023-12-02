@@ -6,6 +6,13 @@ jobs:
   start-server:
     runs-on: ubuntu-latest
 
+    services:
+      deno-server:
+        image: hayd/deno:1.x
+        ports:
+          - 8080:8080
+        options: --allow-net=:8080
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
@@ -16,10 +23,7 @@ jobs:
           deno-version: 1.x
 
       - name: Start Server
-        run: |
-          deno run --allow-net=:8080 server.js &
-          sleep 5 # Wait for the server to start
-        background: true
+        run: sleep 5 # Wait for the server to start
 
   run-tests:
     runs-on: ubuntu-latest
