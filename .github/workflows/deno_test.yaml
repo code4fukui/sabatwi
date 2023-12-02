@@ -17,7 +17,7 @@ jobs:
 
       - name: Start Deno Server
         run: |
-          deno run --allow-net server.ts & echo $! > deno_pid
+          deno run --allow-net sabatwi.js & echo $! > deno_pid
           sleep 5 # Wait for Deno server to start
 
       - name: Test Connection with Curl
