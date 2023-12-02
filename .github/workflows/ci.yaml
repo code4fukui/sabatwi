@@ -6,13 +6,6 @@ jobs:
   start-server:
     runs-on: ubuntu-latest
 
-    services:
-      deno-server:
-        image: denoland/deno:1.x
-        ports:
-          - 8080:8080
-        options: --allow-net=:8080
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
@@ -23,6 +16,9 @@ jobs:
           deno-version: 1.x
 
       - name: Start Server
+        run: deno run -A --unstable --watch sabatwi.js 8080
+
+      - name: Sleep
         run: sleep 5 # Wait for the server to start
 
   run-tests:
