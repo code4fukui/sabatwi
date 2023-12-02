@@ -1,6 +1,12 @@
 name: Run Tests
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   start-server:
@@ -16,7 +22,9 @@ jobs:
           deno-version: 1.x
 
       - name: Start Server
-        run: deno run -A --unstable --watch sabatwi.js 8080
+        run: |
+          deno run --allow-net=:8080 server.js &
+          sleep 5 # Wait for the server to start
         background: true
 
   run-tests:
