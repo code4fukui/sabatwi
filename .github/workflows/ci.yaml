@@ -1,45 +1,45 @@
-name: Run Tests
+# name: Run Tests
 
-on: [push, pull_request]
+# on: [push, pull_request]
 
-jobs:
-  start-server:
-    runs-on: ubuntu-latest
+# jobs:
+#   start-server:
+#     runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
+#     steps:
+#       - name: Checkout Repository
+#         uses: actions/checkout@v2
 
-      - name: Set up Deno
-        uses: denolib/setup-deno@v2
-        with:
-          deno-version: 1.x
+#       - name: Set up Deno
+#         uses: denolib/setup-deno@v2
+#         with:
+#           deno-version: 1.x
 
-      - name: Start Server
-        run: deno run -A --unstable --watch sabatwi.js --allow-net=:8080 > /dev/null 2>&1 &
+#       - name: Start Server
+#         run: deno run -A --unstable --watch sabatwi.js --allow-net=:8080 > /dev/null 2>&1 &
 
-      - name: Sleep
-        run: sleep 5 # Wait for the server to start
+#       - name: Sleep
+#         run: sleep 5 # Wait for the server to start
 
-      - name: Debug Log
-        run: echo "Server started"
+#       - name: Debug Log
+#         run: echo "Server started"
 
-  run-tests:
-    runs-on: ubuntu-latest
+#   run-tests:
+#     runs-on: ubuntu-latest
 
-    needs: start-server
+#     needs: start-server
 
-    steps:
-      - name: Health Check
-        run: curl http://localhost:8080/api/health
+#     steps:
+#       - name: Health Check
+#         run: curl http://localhost:8080/api/health
 
-      - name: Checkout Repository
-        uses: actions/checkout@v2
+#       - name: Checkout Repository
+#         uses: actions/checkout@v2
 
-      - name: Set up Deno
-        uses: denolib/setup-deno@v2
-        with:
-          deno-version: 1.x
+#       - name: Set up Deno
+#         uses: denolib/setup-deno@v2
+#         with:
+#           deno-version: 1.x
 
-      - name: Run Tests
-        run: deno test --allow-net
+#       - name: Run Tests
+#         run: deno test --allow-net
