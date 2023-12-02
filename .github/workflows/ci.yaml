@@ -8,7 +8,7 @@ jobs:
 
     services:
       deno-server:
-        image: hayd/deno:1.x
+        image: denoland/deno:1.x
         ports:
           - 8080:8080
         options: --allow-net=:8080
