@@ -16,7 +16,10 @@ jobs:
           deno-version: 1.x
 
       - name: Start Server
-        run: deno run -A --unstable --watch sabatwi.js 8080 > /dev/null 2>&1 &
+        run: deno run -A --unstable --watch sabatwi.js --allow-net=:8080 > /dev/null 2>&1 &
+
+      - name: Health Check
+        run: curl http://localhost:8080
 
       - name: Sleep
         run: sleep 5 # Wait for the server to start
