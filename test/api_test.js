@@ -5,12 +5,14 @@ import {
 } from "https://deno.land/std/testing/asserts.ts";
 import { serve } from "https://deno.land/std/http/server.ts";
 import { startServer } from "../sabatwi.js";
+import { sleep } from "https://js.sabae.cc/sleep.js";
 
 const PORT = 8080;
 const BASE_URL = `http://localhost:${PORT}/api`;
 
 console.log(`Server is running at http://localhost:${PORT}`);
 startServer(PORT);
+await sleep(1000);
 
 function assertObjectMatchWithoutDtAndId(actual, expected) {
   // dtとidを除いたオブジェクトが一致することを確認する
