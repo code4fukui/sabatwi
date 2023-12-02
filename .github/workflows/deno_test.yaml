@@ -22,7 +22,7 @@ jobs:
 
       - name: Test Connection with Curl
         run: |
-          curl http://localhost:8000 # Replace with your Deno server URL
+          curl http://localhost:8080 # Replace with your Deno server URL
           curl_exit_code=$?
           if [ $curl_exit_code -ne 0 ]; then
             echo "Curl failed with exit code $curl_exit_code"
