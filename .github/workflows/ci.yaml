@@ -21,6 +21,9 @@ jobs:
       - name: Sleep
         run: sleep 5 # Wait for the server to start
 
+      - name: Debug Log
+        run: echo "Server started"
+
       - name: Health Check
         run: curl http://localhost:8080
 
