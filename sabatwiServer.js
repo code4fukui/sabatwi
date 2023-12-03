@@ -1,11 +1,10 @@
-import { serveAPI } from "https://code4fukui.github.io/wsutil/wsutil.js";
+import { serveAPI } from "./serveAPI.js";
 import { DateTime } from "https://js.sabae.cc/DateTime.js";
 import { nanoid } from "https://code4fukui.github.io/nanoid/nanoid.js";
 import { openKv } from "./openKv.js";
 import { migrate } from "./migrate.js";
 
 export const startServer = async (port) => {
-
 
   const kv = await openKv();
   await migrate(kv);
@@ -18,7 +17,7 @@ export const startServer = async (port) => {
     return [type, day, hour, min, time, user, id];
   };
 
-  serveAPI("/api/", async (param, req, path, conninfo) => {
+  return serveAPI("/api/", async (param, req, path, conninfo) => {
     if (typeof param == "string" && param[0] == "{") {
       param = JSON.parse(param);
     }
