@@ -19,4 +19,4 @@ jobs:
           deno-version: 1.x
 
       - name: Run Tests
-        run: deno test --allow-net
+        run: deno test -A --unstable
