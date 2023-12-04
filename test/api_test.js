@@ -1,13 +1,11 @@
 import {
   assertEquals
 } from "https://deno.land/std/testing/asserts.ts";
-import { startServer } from "../sabatwiServer.js";
+import { port, server } from "../sabatwi.js";
 
-const PORT = 8080;
-const BASE_URL = `http://localhost:${PORT}/api`;
+const BASE_URL = `http://localhost:${port}/api`;
 
-console.log(`Server is running at http://localhost:${PORT}`);
-const server = await startServer(PORT);
+console.log(`Server is running at http://localhost:${port}`);
 
 function assertObjectMatchWithoutDtAndId(actual, expected) {
   // dtとidを除いたオブジェクトが一致することを確認する
