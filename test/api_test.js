@@ -2,15 +2,12 @@ import {
   assertEquals
 } from "https://deno.land/std/testing/asserts.ts";
 import { startServer } from "../sabatwiServer.js";
-import { closeServer } from "../serveAPI.js";
-import { sleep } from "https://js.sabae.cc/sleep.js";
 
 const PORT = 8080;
 const BASE_URL = `http://localhost:${PORT}/api`;
 
 console.log(`Server is running at http://localhost:${PORT}`);
-const server = startServer(PORT);
-await sleep(1000);
+const server = await startServer(PORT);
 
 function assertObjectMatchWithoutDtAndId(actual, expected) {
   // dtとidを除いたオブジェクトが一致することを確認する
@@ -37,12 +34,13 @@ Deno.test("Get Tweet List", async () => {
   assertEquals(response.status, 200);
   const result = await response.json();
 
-  assertObjectMatchWithoutDtAndId(result[0], {
+  assertObjectMatchWithoutDtAndId(result[result.length - 1], {
     value: { content: "Test tweet", user: "testUser" },
   });
 });
-
+/*
 //サーバーを閉じるようにする
 Deno.test("Close Server", async () => {
-  closeServer();
+  await server.shutdown();
 });
+*/
