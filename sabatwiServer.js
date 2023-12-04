@@ -1,4 +1,4 @@
-import { serveAPI } from "./serveAPI.js";
+import { serveAPI } from "https://code4fukui.github.io/wsutil/wsutil.js";
 import { DateTime } from "https://js.sabae.cc/DateTime.js";
 import { nanoid } from "https://code4fukui.github.io/nanoid/nanoid.js";
 import { openKv } from "./openKv.js";
@@ -25,7 +25,7 @@ export const startServer = async (port) => {
       const now = new DateTime();
       const id = nanoid();
       const key = makeKeyByTime(now, "tweet", param.user, id);
-      kv.set(key, param);
+      await kv.set(key, param);
       return "ok";
     } else if (path == "/api/tweet/list") {
       const entries = kv.list({ prefix: ["tweet"] });
