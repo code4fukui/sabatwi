@@ -36,9 +36,8 @@ Deno.test("Get Tweet List", async () => {
     value: { content: "Test tweet", user: "testUser" },
   });
 });
-/*
+
 //サーバーを閉じるようにする
 Deno.test("Close Server", async () => {
   await server.shutdown();
 });
-*/

@@ -7,9 +7,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Health Check
-        run: curl http://localhost:8080/api/health
-
       - name: Checkout Repository
         uses: actions/checkout@v2
 
