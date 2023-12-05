@@ -1,0 +1,43 @@
+import {
+  assertEquals
+} from "https://deno.land/std/testing/asserts.ts";
+import { port, server } from "../sabatwi.js";
+
+const BASE_URL = `http://localhost:${port}/api`;
+
+console.log(`Server is running at http://localhost:${port}`);
+
+function assertObjectMatchWithoutDtAndId(actual, expected) {
+  // dtとidを除いたオブジェクトが一致することを確認する
+  const { dt, id, ...actualWithoutDtAndId } = actual;
+  const { dt: expectedDt, id: expectedId, ...expectedWithoutDtAndId } = expected;
+
+  assertEquals(actualWithoutDtAndId, expectedWithoutDtAndId);
+}
+
+Deno.test("Post Tweet", async () => {
+  const response = await fetch(`${BASE_URL}/tweet/add`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ user: "testUser", content: "Test tweet" }),
+  });
+
+  assertEquals(response.status, 200);
+  const result = await response.json();
+  assertEquals(result, "ok");
+});
+
+Deno.test("Get Tweet List", async () => {
+  const response = await fetch(`${BASE_URL}/tweet/list`);
+  assertEquals(response.status, 200);
+  const result = await response.json();
+
+  assertObjectMatchWithoutDtAndId(result[result.length - 1], {
+    value: { content: "Test tweet", user: "testUser" },
+  });
+});
+
+//サーバーを閉じるようにする
+Deno.test("Close Server", async () => {
+  await server.shutdown();
+});

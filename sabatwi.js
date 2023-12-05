@@ -4,7 +4,7 @@ import { nanoid } from "https://code4fukui.github.io/nanoid/nanoid.js";
 import { openKv } from "./openKv.js";
 import { migrate } from "./migrate.js";
 
-const port = Deno.args[0] || 8080;
+export const port = Deno.args[0] || 8080;
 
 const kv = await openKv();
 await migrate(kv);
@@ -17,7 +17,7 @@ const makeKeyByTime = (dt, type, user, id) => {
   return [type, day, hour, min, time, user, id];
 };
 
-serveAPI("/api/", async (param, req, path, conninfo) => {
+export const server = serveAPI("/api/", async (param, req, path, conninfo) => {
   if (typeof param == "string" && param[0] == "{") {
     param = JSON.parse(param);
   }
@@ -25,7 +25,7 @@ serveAPI("/api/", async (param, req, path, conninfo) => {
     const now = new DateTime();
     const id = nanoid();
     const key = makeKeyByTime(now, "tweet", param.user, id);
-    kv.set(key, param);
+    await kv.set(key, param);
     return "ok";
   } else if (path == "/api/tweet/list") {
     const entries = kv.list({ prefix: ["tweet"] });
@@ -35,6 +35,9 @@ serveAPI("/api/", async (param, req, path, conninfo) => {
       list.push(d);
     }
     return list;
+  }
+  else if (path == "/api/health") {
+    return "ok";
   }
   return "illegal";
 }, port);
