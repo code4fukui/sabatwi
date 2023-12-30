@@ -12,7 +12,7 @@
 <div class=postbox>
   <input type=text id=in_user placeholder=ユーザー名><br>
   <textarea id=ta_tweet></textarea><br>
-  <button id=btn_tweet>ツイートする</button>
+  <button id=btn_tweet>ツイートする</button> <button id=btnpush>通知を受け取る</button>
 </div>
 
 <div id=div_list></div>
@@ -26,6 +26,25 @@ icon: by <a href=https://github.com/code4fukui/material-design-icons>Google Mate
 import { DateTime } from "https://js.sabae.cc/DateTime.js";
 import { fetchJSON } from "https://js.sabae.cc/fetchJSON.js";
 import { encodeHTML } from "https://code4sabae.github.io/js/encodeHTML.js";
+//import { WebPush } from "https://code4fukui.github.io/WebPush/static/WebPush.js";
+import { WebPush } from "./WebPush.js";
+
+const webpush = new WebPush("sabatwi");
+
+btnpush.onclick = async () => {
+  btnpush.disabled = true;
+  const uuid = webpush.getID();
+  console.log(uuid);
+  if (uuid) {
+    if (confirm("通知をOFFにしますか？")) {
+      await webpush.unsubscribe();
+    }
+  } else {
+    await webpush.subscribe();
+    alert("何かコメントがあれば通知します！")
+  }
+  btnpush.disabled = false;
+};
 
 const cr = (tag, parent, cls) => {
   const c = document.createElement(tag);
@@ -76,7 +95,8 @@ const show = async () => {
     cr("div", divfuncs, "func reply").onclick = async () => {
       const comment = prompt("");
       if (!comment) return;
-      const res = await fetchJSON("./api/tweet/add", { user: getUser(), tweet: comment, replyid: e.id });
+      const uuid = webpush.getID();
+      const res = await fetchJSON("./api/tweet/add", { user: getUser(), tweet: comment, replyid: e.id, uuid });
       if (res != "ok") {
         alert("コメント失敗！もう一度お試しください");
         return;
@@ -86,6 +106,8 @@ const show = async () => {
     cr("div", divfuncs, "count").textContent = comments.length > 0 ? comments.length : "";
     if (comments.length > 0) {
       const divc = cr("div", div, "comments");
+      comments.sort((a, b) => a.dt - b.dt);
+      console.log(comments);
       for (const com of comments) {
         const divc2 = cr("div", divc, "comment");
         divc2.innerHTML = encodeHTML(`${com.value.tweet}`, true);

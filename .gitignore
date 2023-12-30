@@ -1,1 +1,4 @@
 kv/
+data/vapidKeys.json
+static/vapidPublicKey.txt
+data/subscription/

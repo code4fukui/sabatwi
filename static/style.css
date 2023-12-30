@@ -1,6 +1,7 @@
 body {
   background-color: rgb(191, 225, 238);
   color: #222;
+  font-family: sans-serif;
 }
 h1 {
 }
@@ -18,8 +19,8 @@ h1 {
   width: 100%;
   padding: .5em;
 }
-.postbox #btn_tweet {
-  padding: .2em;
+.postbox button {
+  padding: .2em .5em;
 }
 
 .tweetbox {
