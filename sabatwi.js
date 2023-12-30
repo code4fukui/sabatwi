@@ -43,14 +43,10 @@ serveAPI("/api/", async (param, req, path, conninfo) => {
     const now = new DateTime();
     const id = nanoid();
     const key = makeKeyByTime(now, "tweet", param.user, id);
-<<<<<<< Updated upstream
-    kv.set(key, param);
-=======
     await kv.set(key, param);
     if (param.uuid && param.tweet) {
       push(param.uuid, param.tweet + "(" + param.user + ")");
     }
->>>>>>> Stashed changes
     return "ok";
   } else if (path == "/api/tweet/list") {
     const entries = kv.list({ prefix: ["tweet"] });
@@ -61,8 +57,6 @@ serveAPI("/api/", async (param, req, path, conninfo) => {
     }
     return list;
   }
-<<<<<<< Updated upstream
-=======
   else if (path == "/api/health") {
     return "ok";
   }
@@ -83,6 +77,5 @@ serveAPI("/api/", async (param, req, path, conninfo) => {
     if (n >= 0) list.splice(n, 1);
     return { uuid };
   }
->>>>>>> Stashed changes
   return "illegal";
 }, port);
