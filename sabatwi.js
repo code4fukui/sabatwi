@@ -14,6 +14,7 @@ const list = (await dir2array("data/subscription")).filter(i => i.endsWith(".jso
 const push = (myuuid, message) => {
   const data = {
     title: "さばつい",
+    url: "https://sabatwi.com/",
     body: message,
     //timeout: 5000, // 通知を消すまでの長さ msec （デフォルト0:消さない）
     //delay: 1000, // 表示するまでの時間 msec（デフォルト0）
