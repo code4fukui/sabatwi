@@ -12,12 +12,14 @@ h1 {
 .postbox #in_user {
   padding: .2em;
   margin-bottom: .4em;
+  font-size: 16px;
 }
 .postbox #ta_tweet {
   padding: .2em;
   height: 5em;
   width: 100%;
   padding: .5em;
+  font-size: 16px;
 }
 .postbox button {
   padding: .2em .5em;
