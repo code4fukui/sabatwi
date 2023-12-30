@@ -46,7 +46,16 @@ btnpush.onclick = async () => {
       alert("何かコメントがあれば通知します！")
     } catch (e) {
       console.log(e);
-      alert("通知が設定できませんでした。")
+      const ua = navigator.userAgent;
+      if (ua.indexOf("iPhone") >= 0 || ua.indexOf("iPad") >= 0) {
+        if (ua.indexOf("16_1") >= 0 || ua.indexOf("16_2") >= 0 || ua.indexOf("16_3") >= 0 || ua.indexOf("15_") >= 0 || ua.indexOf("14_") >= 0 || ua.indexOf("13_") >= 0) {
+          alert("通知が設定できませんでした\niOSのバージョン16.4以上にしてください");
+        } else {
+          alert("通知が設定できませんでした\n「ホーム画面へ追加」してお試しください");
+        }
+      } else {
+        alert("通知が設定できませんでした")
+      }
     }
   }
   btnpush.disabled = false;
