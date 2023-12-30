@@ -13,7 +13,7 @@
 <div class=postbox>
   <input type=text id=in_user placeholder=ユーザー名><br>
   <textarea id=ta_tweet></textarea><br>
-  <button id=btn_tweet>ツイートする</button> <button id=btnpush>通知を受け取る</button>
+  <button id=btn_tweet>ツイートする</button> <button id=btn_reload>再読み込み</button> <button id=btn_push>通知を受け取る</button>
 </div>
 
 <div id=div_list></div>
@@ -32,8 +32,8 @@ import { WebPush } from "./WebPush.js";
 
 const webpush = new WebPush("sabatwi");
 
-btnpush.onclick = async () => {
-  btnpush.disabled = true;
+btn_push.onclick = async () => {
+  btn_push.disabled = true;
   const uuid = webpush.getID();
   console.log(uuid);
   if (uuid) {
@@ -58,7 +58,7 @@ btnpush.onclick = async () => {
       }
     }
   }
-  btnpush.disabled = false;
+  btn_push.disabled = false;
 };
 
 const cr = (tag, parent, cls) => {
@@ -147,6 +147,8 @@ btn_tweet.onclick = async () => {
 
 show();
 in_user.value = localStorage.getItem("user") || "";
+
+btn_reload.onclick = () => show();
 
 </script>
 
