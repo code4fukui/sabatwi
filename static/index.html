@@ -1,4 +1,5 @@
 <!DOCTYPE html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><link rel="icon" href="data:">
+<meta name="apple-mobile-web-app-capable" content="yes">
 <title>さばつい</title>
 <link rel="icon" href="https://sabatwi.com/img/image3.png">
 <link rel="apple-touch-icon-precomposed" href="https://sabatwi.com/img/image3.png">
@@ -40,8 +41,13 @@ btnpush.onclick = async () => {
       await webpush.unsubscribe();
     }
   } else {
-    await webpush.subscribe();
-    alert("何かコメントがあれば通知します！")
+    try {
+      await webpush.subscribe();
+      alert("何かコメントがあれば通知します！")
+    } catch (e) {
+      console.log(e);
+      alert("通知が設定できませんでした。")
+    }
   }
   btnpush.disabled = false;
 };
