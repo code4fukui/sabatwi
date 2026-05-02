@@ -1,9 +1,15 @@
 # How to setup the server
 
+## prepare a server
+
+replace followings to your server
+- *IP Address*
+- *domain name*
+
 ## login
 
 ```sh
-ssh -i secretkey ubuntu@160.248.79.66
+ssh -i secretkey ubuntu@*IP Address*
 ```
 
 ## update OS
@@ -20,14 +26,14 @@ sudo apt install nginx
 sudo apt install certbot python3-certbot-nginx
 ```
 
-- get a domain: sabatwi.com
-- set DNS record: a @ 160.248.79.66
+- get a domain: *domain name*
+- set DNS record: a @ *IP Address*
 
 ```sh
-sudo vi /etc/nginx/conf.d/sabatwi_com.conf
+sudo vi /etc/nginx/conf.d/*domain name*.conf
 server {
   listen 80;
-  server_name sabatwi.com;
+  server_name *domain name*;
   location / {
     proxy_pass http://localhost:8080/;
   }
@@ -52,7 +58,7 @@ sudo service nginx start
 sudo certbot
 ```
 
-- check https://sabatwi.com/
+- check https://*domain name*/
 
 ## if edit *.conf
 
@@ -75,7 +81,7 @@ mkdir static
 echo test > static/index.html
 deno run -A https://code4fukui.github.io/wsutil/demo4.js 8080
 ```
-- access https://sabatwi.com/
+- access https://*domain name*/
 
 ## setup sabatwi
 
